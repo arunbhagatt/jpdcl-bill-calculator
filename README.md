@@ -86,8 +86,6 @@ Actual bills may vary slightly due to:
 
 Arun Bhagat
 
-📞 6005538708
-
 📧 bhagat.arun702@gmail.com
 
 ---
