@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>JPDCL Bill Calculator</title>
 
@@ -29,9 +29,9 @@ body{
     background:
     linear-gradient(
         135deg,
-        #0f172a,
-        #1e293b,
-        #334155
+        #0f2027,
+        #203a43,
+        #2c5364
     );
 
     display:flex;
@@ -41,6 +41,30 @@ body{
     align-items:center;
 
     padding:20px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.bg-glow{
+
+    position:absolute;
+
+    width:300px;
+
+    height:300px;
+
+    background:
+    rgba(0,255,255,0.15);
+
+    border-radius:50%;
+
+    filter:blur(80px);
+
+    top:-100px;
+
+    right:-100px;
 }
 
 .container{
@@ -50,19 +74,21 @@ body{
     max-width:500px;
 
     background:
-    rgba(255,255,255,0.08);
+    rgba(255,255,255,0.12);
 
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(18px);
 
     border:
-    1px solid rgba(255,255,255,0.1);
+    1px solid rgba(255,255,255,0.15);
 
-    border-radius:20px;
+    border-radius:24px;
 
     padding:25px;
 
     box-shadow:
-    0 10px 30px rgba(0,0,0,0.4);
+    0 8px 32px rgba(0,0,0,0.35);
+
+    z-index:2;
 }
 
 .title{
@@ -80,7 +106,7 @@ body{
 
     text-align:center;
 
-    color:#cbd5e1;
+    color:#dbeafe;
 
     margin-bottom:25px;
 
@@ -113,7 +139,7 @@ input{
 
     border-radius:12px;
 
-    font-size:20px;
+    font-size:18px;
 
     background:#f8fafc;
 
@@ -126,6 +152,15 @@ input:focus{
 
     box-shadow:
     0 0 10px rgba(59,130,246,0.5);
+}
+
+.small-note{
+
+    color:#dbeafe;
+
+    font-size:12px;
+
+    margin-top:6px;
 }
 
 button{
@@ -141,8 +176,8 @@ button{
     background:
     linear-gradient(
         135deg,
-        #06b6d4,
-        #3b82f6
+        #00c6ff,
+        #0072ff
     );
 
     color:white;
@@ -240,8 +275,8 @@ tr:nth-child(even){
     background:
     linear-gradient(
         135deg,
-        #10b981,
-        #059669
+        #11998e,
+        #38ef7d
     );
 
     color:white;
@@ -256,7 +291,7 @@ tr:nth-child(even){
 
 .note{
 
-    margin-top:12px;
+    margin-top:14px;
 
     text-align:center;
 
@@ -264,7 +299,7 @@ tr:nth-child(even){
 
     font-size:13px;
 
-    line-height:1.6;
+    line-height:1.7;
 }
 
 .footer{
@@ -272,19 +307,17 @@ tr:nth-child(even){
     margin-top:20px;
 
     text-align:center;
-
-    color:#94a3b8;
-
-    font-size:13px;
 }
 
 .developer{
 
-    color:#94a3b8;
+    color:#dbeafe;
 
-    opacity:0.75;
+    opacity:0.85;
 
     line-height:1.7;
+
+    font-size:13px;
 }
 
 @media(max-width:480px){
@@ -304,6 +337,8 @@ tr:nth-child(even){
 </head>
 
 <body>
+
+<div class="bg-glow"></div>
 
 <div class="container">
 
@@ -329,6 +364,26 @@ tr:nth-child(even){
 
     </div>
 
+    <div class="input-box">
+
+        <label>
+            Sanctioned Load (Optional)
+        </label>
+
+        <input
+            type="number"
+            id="load"
+            placeholder="Default 2 kW"
+            value="2"
+            step="0.5"
+        >
+
+        <div class="small-note">
+            Default value is 2 kW
+        </div>
+
+    </div>
+
     <button onclick="calculateBill()">
         Calculate Bill
     </button>
@@ -337,15 +392,7 @@ tr:nth-child(even){
 
     <div class="footer">
 
-        Developed for Offline Use
-
-        <br><br>
-
         <span class="developer">
-
-            For any help contact developer
-
-            <br>
 
             Arun Bhagat — 📞 6005538708
 
@@ -387,6 +434,14 @@ function calculateBill(){
         return;
     }
 
+    let sanctionedLoad =
+    parseFloat(
+        document.getElementById("load").value
+    ) || 2;
+
+    let demandCharge =
+    sanctionedLoad * 8;
+
     let slab1Units = 0;
     let slab2Units = 0;
     let slab3Units = 0;
@@ -394,8 +449,6 @@ function calculateBill(){
     let slab1Cost = 0;
     let slab2Cost = 0;
     let slab3Cost = 0;
-
-    let fixedCharge = 50;
 
     slab1Units =
     Math.min(units, 200);
@@ -425,7 +478,7 @@ function calculateBill(){
     slab1Cost +
     slab2Cost +
     slab3Cost +
-    fixedCharge;
+    demandCharge;
 
     document.getElementById("output").innerHTML =
 
@@ -465,10 +518,10 @@ function calculateBill(){
 
             <tr>
                 <td colspan="3">
-                    Fixed Charges
+                    Demand Charges
                 </td>
                 <td>
-                    ₹${fixedCharge.toFixed(2)}
+                    ₹${demandCharge.toFixed(2)}
                 </td>
             </tr>
 
@@ -483,9 +536,14 @@ function calculateBill(){
 
         <div class="note">
 
-            Estimated domestic electricity bill.
-            Actual bill may vary due to taxes,
-            meter rent, FAC, and adjustments.
+            Actual bill may vary slightly
+            due to arrears or adjustments.
+
+            <br><br>
+
+            This is an unofficial bill
+            estimator and is not affiliated
+            with JPDCL.
 
         </div>
 
