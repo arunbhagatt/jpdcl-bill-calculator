@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>JPDCL Bill Calculator</title>
+
+<link rel="manifest" href="manifest.json">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family: Arial, sans-serif;
+
+    min-height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #0f172a,
+        #1e293b,
+        #334155
+    );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+}
+
+.container{
+
+    width:100%;
+
+    max-width:500px;
+
+    background:
+    rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(12px);
+
+    border:
+    1px solid rgba(255,255,255,0.1);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,0.4);
+}
+
+.title{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:30px;
+
+    margin-bottom:8px;
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#cbd5e1;
+
+    margin-bottom:25px;
+
+    font-size:14px;
+}
+
+.input-box{
+
+    margin-bottom:18px;
+}
+
+label{
+
+    display:block;
+
+    color:white;
+
+    margin-bottom:10px;
+
+    font-size:16px;
+}
+
+input{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:20px;
+
+    background:#f8fafc;
+
+    outline:none;
+
+    transition:0.3s;
+}
+
+input:focus{
+
+    box-shadow:
+    0 0 10px rgba(59,130,246,0.5);
+}
+
+button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #06b6d4,
+        #3b82f6
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:
+    0 0 15px rgba(59,130,246,0.4);
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 10px 20px rgba(59,130,246,0.4);
+}
+
+.result-card{
+
+    margin-top:25px;
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    animation:fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+th{
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:12px;
+
+    font-size:15px;
+}
+
+td{
+
+    padding:12px;
+
+    text-align:center;
+
+    border-bottom:1px solid #ddd;
+
+    font-size:15px;
+}
+
+tr:nth-child(even){
+
+    background:#f8fafc;
+}
+
+.total{
+
+    margin-top:20px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #10b981,
+        #059669
+    );
+
+    color:white;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    box-shadow:
+    0 8px 20px rgba(16,185,129,0.35);
+}
+
+.note{
+
+    margin-top:12px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+.footer{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#94a3b8;
+
+    font-size:13px;
+}
+
+.developer{
+
+    color:#94a3b8;
+
+    opacity:0.75;
+
+    line-height:1.7;
+}
+
+@media(max-width:480px){
+
+    .title{
+        font-size:24px;
+    }
+
+    .total{
+        font-size:22px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="title">
+        ⚡ JPDCL Bill Calculator
+    </div>
+
+    <div class="subtitle">
+        Smart Electricity Bill Estimator
+    </div>
+
+    <div class="input-box">
+
+        <label>
+            Enter Units Consumed
+        </label>
+
+        <input
+            type="number"
+            id="units"
+            placeholder="Example: 450"
+        >
+
+    </div>
+
+    <button onclick="calculateBill()">
+        Calculate Bill
+    </button>
+
+    <div id="output"></div>
+
+    <div class="footer">
+
+        Developed for Offline Use
+
+        <br><br>
+
+        <span class="developer">
+
+            For any help contact developer
+
+            <br>
+
+            Arun Bhagat — 📞 6005538708
+
+        </span>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("units")
+.addEventListener("keypress", function(e){
+
+    if(e.key === "Enter"){
+        calculateBill();
+    }
+
+});
+
+function calculateBill(){
+
+    if(document.getElementById("units").value.trim() === ""){
+
+        alert("Please enter units");
+
+        return;
+    }
+
+    let units =
+    parseFloat(
+        document.getElementById("units").value
+    );
+
+    if(isNaN(units) || units < 0){
+
+        alert("Please enter valid units");
+
+        return;
+    }
+
+    let slab1Units = 0;
+    let slab2Units = 0;
+    let slab3Units = 0;
+
+    let slab1Cost = 0;
+    let slab2Cost = 0;
+    let slab3Cost = 0;
+
+    let fixedCharge = 50;
+
+    slab1Units =
+    Math.min(units, 200);
+
+    slab1Cost =
+    slab1Units * 2.30;
+
+    if(units > 200){
+
+        slab2Units =
+        Math.min(units - 200, 200);
+
+        slab2Cost =
+        slab2Units * 4;
+    }
+
+    if(units > 400){
+
+        slab3Units =
+        units - 400;
+
+        slab3Cost =
+        slab3Units * 4.30;
+    }
+
+    let total =
+    slab1Cost +
+    slab2Cost +
+    slab3Cost +
+    fixedCharge;
+
+    document.getElementById("output").innerHTML =
+
+    `
+
+    <div class="result-card">
+
+        <table>
+
+            <tr>
+                <th>Slab</th>
+                <th>Units</th>
+                <th>Rate</th>
+                <th>Amount</th>
+            </tr>
+
+            <tr>
+                <td>0 - 200</td>
+                <td>${slab1Units}</td>
+                <td>₹2.30</td>
+                <td>₹${slab1Cost.toFixed(2)}</td>
+            </tr>
+
+            <tr>
+                <td>201 - 400</td>
+                <td>${slab2Units}</td>
+                <td>₹4.00</td>
+                <td>₹${slab2Cost.toFixed(2)}</td>
+            </tr>
+
+            <tr>
+                <td>Above 400</td>
+                <td>${slab3Units}</td>
+                <td>₹4.30</td>
+                <td>₹${slab3Cost.toFixed(2)}</td>
+            </tr>
+
+            <tr>
+                <td colspan="3">
+                    Fixed Charges
+                </td>
+                <td>
+                    ₹${fixedCharge.toFixed(2)}
+                </td>
+            </tr>
+
+        </table>
+
+        <div class="total">
+
+            💰 Estimated Bill =
+            ₹${total.toLocaleString("en-IN")}
+
+        </div>
+
+        <div class="note">
+
+            Estimated domestic electricity bill.
+            Actual bill may vary due to taxes,
+            meter rent, FAC, and adjustments.
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>
