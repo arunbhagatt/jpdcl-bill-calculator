@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -23,7 +22,7 @@ content="width=device-width, initial-scale=1.0">
 
 body{
 
-    font-family: Arial, sans-serif;
+    font-family:Arial,sans-serif;
 
     min-height:100vh;
 
@@ -56,8 +55,7 @@ body{
 
     height:300px;
 
-    background:
-    rgba(0,255,255,0.15);
+    background:rgba(0,255,255,0.15);
 
     border-radius:50%;
 
@@ -72,22 +70,19 @@ body{
 
     width:100%;
 
-    max-width:600px;
+    max-width:650px;
 
-    background:
-    rgba(255,255,255,0.12);
+    background:rgba(255,255,255,0.12);
 
     backdrop-filter:blur(18px);
 
-    border:
-    1px solid rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.15);
 
     border-radius:24px;
 
     padding:25px;
 
-    box-shadow:
-    0 8px 32px rgba(0,0,0,0.35);
+    box-shadow:0 8px 32px rgba(0,0,0,0.35);
 
     z-index:2;
 }
@@ -112,6 +107,138 @@ body{
     margin-bottom:25px;
 
     font-size:14px;
+}
+
+/* CONNECTION TYPE */
+
+.connection-screen{
+
+    text-align:center;
+
+    color:white;
+}
+
+.connection-heading{
+
+    font-size:21px;
+
+    margin-bottom:20px;
+}
+
+.connection-options{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:15px;
+}
+
+.connection-btn{
+
+    border:1px solid rgba(255,255,255,0.18);
+
+    background:rgba(255,255,255,0.10);
+
+    color:white;
+
+    border-radius:18px;
+
+    padding:25px 15px;
+
+    cursor:pointer;
+
+    transition:0.3s;
+
+    box-shadow:none;
+}
+
+.connection-btn:hover{
+
+    transform:translateY(-4px);
+
+    background:rgba(255,255,255,0.18);
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.20);
+}
+
+.connection-icon{
+
+    display:block;
+
+    font-size:42px;
+
+    margin-bottom:10px;
+}
+
+.connection-name{
+
+    display:block;
+
+    font-size:20px;
+
+    font-weight:bold;
+}
+
+.connection-description{
+
+    display:block;
+
+    margin-top:7px;
+
+    color:#dbeafe;
+
+    font-size:12px;
+}
+
+/* CALCULATOR */
+
+.calculator-screen{
+
+    display:none;
+}
+
+.selected-type{
+
+    text-align:center;
+
+    color:white;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    margin-bottom:20px;
+}
+
+.change-btn{
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,0.25);
+
+    color:#dbeafe;
+
+    padding:9px 15px;
+
+    width:auto;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+    font-size:13px;
+
+    box-shadow:none;
+}
+
+.change-btn:hover{
+
+    transform:none;
+
+    background:rgba(255,255,255,0.10);
+
+    box-shadow:none;
 }
 
 .input-box{
@@ -151,8 +278,7 @@ input{
 
 input:focus{
 
-    box-shadow:
-    0 0 10px rgba(59,130,246,0.5);
+    box-shadow:0 0 10px rgba(59,130,246,0.5);
 }
 
 .small-note{
@@ -164,7 +290,7 @@ input:focus{
     margin-top:6px;
 }
 
-button{
+.calculate-btn{
 
     width:100%;
 
@@ -191,23 +317,23 @@ button{
 
     transition:0.3s;
 
-    box-shadow:
-    0 0 15px rgba(59,130,246,0.4);
+    box-shadow:0 0 15px rgba(59,130,246,0.4);
 }
 
-button:hover{
+.calculate-btn:hover{
 
     transform:translateY(-2px);
 
-    box-shadow:
-    0 10px 20px rgba(59,130,246,0.4);
+    box-shadow:0 10px 20px rgba(59,130,246,0.4);
 }
+
+/* RESULT */
 
 .result-card{
 
     margin-top:25px;
 
-    background:white;
+    background:#22252b;
 
     border-radius:16px;
 
@@ -216,6 +342,8 @@ button:hover{
     animation:fadeIn 0.4s ease;
 
     overflow-x:auto;
+
+    color:#f1f5f9;
 }
 
 @keyframes fadeIn{
@@ -237,27 +365,27 @@ table{
 
     border-collapse:collapse;
 
-    min-width:500px;
+    min-width:560px;
 }
 
 th{
 
-    background:#2563eb;
-
-    color:white;
+    color:#f8fafc;
 
     padding:12px;
 
     font-size:15px;
 
     text-align:left;
+
+    border-bottom:1px solid #444850;
 }
 
 td{
 
     padding:12px;
 
-    border-bottom:1px solid #ddd;
+    border-bottom:1px solid #444850;
 
     font-size:15px;
 }
@@ -269,9 +397,11 @@ td:last-child{
     font-weight:bold;
 }
 
-tr:nth-child(even){
+.total-row td{
 
-    background:#f8fafc;
+    border-bottom:none;
+
+    padding-top:18px;
 }
 
 .total{
@@ -297,8 +427,7 @@ tr:nth-child(even){
 
     font-weight:bold;
 
-    box-shadow:
-    0 8px 20px rgba(16,185,129,0.35);
+    box-shadow:0 8px 20px rgba(16,185,129,0.35);
 }
 
 .note{
@@ -307,7 +436,7 @@ tr:nth-child(even){
 
     text-align:center;
 
-    color:#64748b;
+    color:#cbd5e1;
 
     font-size:13px;
 
@@ -332,10 +461,18 @@ tr:nth-child(even){
     font-size:13px;
 }
 
-@media(max-width:480px){
+@media(max-width:520px){
 
     .title{
         font-size:24px;
+    }
+
+    .connection-options{
+        grid-template-columns:1fr;
+    }
+
+    .connection-btn{
+        padding:20px 15px;
     }
 
     .total{
@@ -358,68 +495,197 @@ tr:nth-child(even){
 
 <div class="container">
 
-<div class="title">
-    ⚡ JPDCL Bill Calculator
-</div>
+    <div class="title">
+        ⚡ JPDCL Bill Calculator
+    </div>
 
-<div class="subtitle">
-    Smart Electricity Bill Estimator
-</div>
+    <div class="subtitle">
+        Smart Electricity Bill Estimator
+    </div>
 
-<div class="input-box">
+    <!-- CONNECTION TYPE SCREEN -->
 
-    <label>
-        Enter Units Consumed
-    </label>
-
-    <input
-        type="number"
-        id="units"
-        placeholder="Example: 450"
-        min="0"
-        step="1"
+    <div
+        id="connectionScreen"
+        class="connection-screen"
     >
 
-</div>
+        <div class="connection-heading">
+            Select Connection Type
+        </div>
 
-<div class="input-box">
+        <div class="connection-options">
 
-    <label>
-        Sanctioned Load (Optional)
-    </label>
+            <button
+                class="connection-btn"
+                onclick="selectConnection('residential')"
+            >
 
-    <input
-        type="number"
-        id="load"
-        placeholder="Default 2 kW"
-        value="2"
-        min="0"
-        step="0.5"
+                <span class="connection-icon">
+                    🏠
+                </span>
+
+                <span class="connection-name">
+                    Residential
+                </span>
+
+                <span class="connection-description">
+                    Household Connection
+                </span>
+
+            </button>
+
+            <button
+                class="connection-btn"
+                onclick="selectConnection('commercial')"
+            >
+
+                <span class="connection-icon">
+                    🏢
+                </span>
+
+                <span class="connection-name">
+                    Commercial
+                </span>
+
+                <span class="connection-description">
+                    Commercial Connection
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CALCULATOR SCREEN -->
+
+    <div
+        id="calculatorScreen"
+        class="calculator-screen"
     >
 
-    <div class="small-note">
-        Default value is 2 kW
+        <div
+            id="selectedType"
+            class="selected-type"
+        ></div>
+
+        <button
+            class="change-btn"
+            onclick="changeConnection()"
+        >
+            ← Change Connection Type
+        </button>
+
+        <div class="input-box">
+
+            <label>
+                Enter Units Consumed
+            </label>
+
+            <input
+                type="number"
+                id="units"
+                placeholder="Example: 450"
+                min="0"
+                step="1"
+            >
+
+        </div>
+
+        <div class="input-box">
+
+            <label>
+                Sanctioned Load (Optional)
+            </label>
+
+            <input
+                type="number"
+                id="load"
+                placeholder="Default 2 kW"
+                value="2"
+                min="0"
+                step="0.5"
+            >
+
+            <div class="small-note">
+                Default value is 2 kW
+            </div>
+
+        </div>
+
+        <button
+            class="calculate-btn"
+            onclick="calculateBill()"
+        >
+            Calculate Bill
+        </button>
+
+        <div id="output"></div>
+
+    </div>
+
+
+    <div class="footer">
+
+        <span class="developer">
+            Developed by Arun Bhagat - bhagat.arun702@gmail.com
+        </span>
+
     </div>
 
 </div>
 
-<button onclick="calculateBill()">
-    Calculate Bill
-</button>
-
-<div id="output"></div>
-
-<div class="footer">
-
-    <span class="developer">
-        Developed by Arun Bhagat - bhagat.arun702@gmail.com
-    </span>
-
-</div>
-
-</div>
 
 <script>
+
+let connectionType = "";
+
+function selectConnection(type){
+
+    connectionType = type;
+
+    document.getElementById("connectionScreen")
+    .style.display = "none";
+
+    document.getElementById("calculatorScreen")
+    .style.display = "block";
+
+    const selectedType =
+    document.getElementById("selectedType");
+
+    if(type === "residential"){
+
+        selectedType.innerHTML =
+        "🏠 Residential Bill";
+
+    }else{
+
+        selectedType.innerHTML =
+        "🏢 Commercial Bill";
+
+    }
+
+    document.getElementById("output").innerHTML = "";
+
+    document.getElementById("units").focus();
+}
+
+function changeConnection(){
+
+    connectionType = "";
+
+    document.getElementById("calculatorScreen")
+    .style.display = "none";
+
+    document.getElementById("connectionScreen")
+    .style.display = "block";
+
+    document.getElementById("output").innerHTML = "";
+
+    document.getElementById("units").value = "";
+}
 
 document.getElementById("units")
 .addEventListener("keypress", function(e){
@@ -431,6 +697,11 @@ document.getElementById("units")
 });
 
 function calculateBill(){
+
+    if(!connectionType){
+
+        return;
+    }
 
     const unitsInput =
     document.getElementById("units").value.trim();
@@ -465,83 +736,199 @@ function calculateBill(){
         sanctionedLoad = 2;
     }
 
-    /*
-        ENERGY SLABS
-        0 - 200       = ₹2.45/unit
-        201 - 400     = ₹4.20/unit
-        Above 400     = ₹4.60/unit
-    */
+    let energyCharges = 0;
 
-    let slab1Units = 0;
-    let slab2Units = 0;
-    let slab3Units = 0;
+    let fixedCharges = 0;
 
-    let slab1Cost = 0;
-    let slab2Cost = 0;
-    let slab3Cost = 0;
+    let electricityDuty = 0;
 
-    slab1Units =
-    Math.min(units, 200);
+    let rows = "";
 
-    slab1Cost =
-    slab1Units * 2.45;
 
-    if(units > 200){
+    /* =========================
+       RESIDENTIAL
+       ========================= */
 
-        slab2Units =
-        Math.min(units - 200, 200);
+    if(connectionType === "residential"){
 
-        slab2Cost =
-        slab2Units * 4.20;
+        let slab1Units =
+        Math.min(units, 200);
+
+        let slab2Units = 0;
+
+        let slab3Units = 0;
+
+        let slab1Cost =
+        slab1Units * 2.45;
+
+        let slab2Cost = 0;
+
+        let slab3Cost = 0;
+
+        if(units > 200){
+
+            slab2Units =
+            Math.min(units - 200, 200);
+
+            slab2Cost =
+            slab2Units * 4.20;
+        }
+
+        if(units > 400){
+
+            slab3Units =
+            units - 400;
+
+            slab3Cost =
+            slab3Units * 4.60;
+        }
+
+        energyCharges =
+        slab1Cost +
+        slab2Cost +
+        slab3Cost;
+
+        fixedCharges =
+        sanctionedLoad * 10;
+
+        electricityDuty =
+        energyCharges * 0.15;
+
+        rows = `
+
+        <tr>
+
+            <td>
+                Slab 1 (0–200 units)
+            </td>
+
+            <td>
+                ${slab1Units} × ₹2.45
+            </td>
+
+            <td>
+                ₹${slab1Cost.toFixed(2)}
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Slab 2 (201–400 units)
+            </td>
+
+            <td>
+                ${slab2Units} × ₹4.20
+            </td>
+
+            <td>
+                ₹${slab2Cost.toFixed(2)}
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Slab 3 (Above 400 units)
+            </td>
+
+            <td>
+                ${slab3Units} × ₹4.60
+            </td>
+
+            <td>
+                ₹${slab3Cost.toFixed(2)}
+            </td>
+
+        </tr>
+
+        `;
+
     }
 
-    if(units > 400){
 
-        slab3Units =
-        units - 400;
+    /* =========================
+       COMMERCIAL
+       ========================= */
 
-        slab3Cost =
-        slab3Units * 4.60;
+    if(connectionType === "commercial"){
+
+        let slab1Units =
+        Math.min(units, 200);
+
+        let slab2Units =
+        Math.max(units - 200, 0);
+
+        let slab1Cost =
+        slab1Units * 3.75;
+
+        let slab2Cost =
+        slab2Units * 5.70;
+
+        energyCharges =
+        slab1Cost +
+        slab2Cost;
+
+        fixedCharges =
+        sanctionedLoad * 75;
+
+        electricityDuty =
+        energyCharges * 0.15;
+
+        rows = `
+
+        <tr>
+
+            <td>
+                Slab 1 (First 200 units)
+            </td>
+
+            <td>
+                ${slab1Units} × ₹3.75
+            </td>
+
+            <td>
+                ₹${slab1Cost.toFixed(2)}
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                Slab 2 (Remaining ${slab2Units} units)
+            </td>
+
+            <td>
+                ${slab2Units} × ₹5.70
+            </td>
+
+            <td>
+                ₹${slab2Cost.toFixed(2)}
+            </td>
+
+        </tr>
+
+        `;
+
     }
 
-    /*
-        TOTAL ENERGY CHARGES (A)
-    */
 
-    let energyCharges =
-    slab1Cost +
-    slab2Cost +
-    slab3Cost;
-
-    /*
-        FIXED CHARGES (B)
-        ₹10 per kW
-    */
-
-    let fixedCharges =
-    sanctionedLoad * 10;
-
-    /*
-        ELECTRICITY DUTY (C)
-        15% of Energy Charges
-    */
-
-    let electricityDuty =
-    energyCharges * 0.15;
-
-    /*
-        TOTAL APPROXIMATE BILL
-        A + B + C
-    */
-
-    let total =
+    const total =
     energyCharges +
     fixedCharges +
     electricityDuty;
 
-    document.getElementById("output").innerHTML =
 
-    `
+    const connectionName =
+    connectionType === "residential"
+    ? "Residential"
+    : "Commercial";
+
+
+    document.getElementById("output").innerHTML = `
 
     <div class="result-card">
 
@@ -549,74 +936,32 @@ function calculateBill(){
 
             <tr>
 
-                <th>Component</th>
+                <th>
+                    Component
+                </th>
 
-                <th>Calculation</th>
+                <th>
+                    Calculation
+                </th>
 
-                <th>Amount</th>
+                <th>
+                    Amount
+                </th>
 
             </tr>
+
+            ${rows}
 
             <tr>
 
                 <td>
-                    Slab 1 (0–200 units)
+                    <strong>
+                        Total Energy Charges (A)
+                    </strong>
                 </td>
 
                 <td>
-                    ${slab1Units} × ₹2.45
-                </td>
-
-                <td>
-                    ₹${slab1Cost.toFixed(2)}
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td>
-                    Slab 2 (201–400 units)
-                </td>
-
-                <td>
-                    ${slab2Units} × ₹4.20
-                </td>
-
-                <td>
-                    ₹${slab2Cost.toFixed(2)}
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td>
-                    Slab 3 (Above 400 units)
-                </td>
-
-                <td>
-                    ${slab3Units} × ₹4.60
-                </td>
-
-                <td>
-                    ₹${slab3Cost.toFixed(2)}
-                </td>
-
-            </tr>
-
-            <tr>
-
-                <td>
-                    <strong>Total Energy Charges (A)</strong>
-                </td>
-
-                <td>
-                    ₹${slab1Cost.toFixed(2)}
-                    +
-                    ₹${slab2Cost.toFixed(2)}
-                    +
-                    ₹${slab3Cost.toFixed(2)}
+                    Energy Charges
                 </td>
 
                 <td>
@@ -628,11 +973,13 @@ function calculateBill(){
             <tr>
 
                 <td>
-                    <strong>Fixed Charges (B)</strong>
+                    <strong>
+                        Fixed Charges (B)
+                    </strong>
                 </td>
 
                 <td>
-                    ${sanctionedLoad} kW × ₹10
+                    ${sanctionedLoad} kW × ₹${connectionType === "commercial" ? "75" : "10"}
                 </td>
 
                 <td>
@@ -644,7 +991,9 @@ function calculateBill(){
             <tr>
 
                 <td>
-                    <strong>Electricity Duty (C)</strong>
+                    <strong>
+                        Electricity Duty (C)
+                    </strong>
                 </td>
 
                 <td>
@@ -657,10 +1006,12 @@ function calculateBill(){
 
             </tr>
 
-            <tr>
+            <tr class="total-row">
 
                 <td>
-                    <strong>Total Approximate Bill</strong>
+                    <strong>
+                        Total Estimated Bill
+                    </strong>
                 </td>
 
                 <td>
@@ -677,15 +1028,20 @@ function calculateBill(){
 
         </table>
 
+
         <div class="total">
 
-            💰 Estimated Bill =
+            💰 Estimated ${connectionName} Bill
+
+            <br>
+
             ₹${total.toLocaleString("en-IN", {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+                minimumFractionDigits:2,
+                maximumFractionDigits:2
             })}
 
         </div>
+
 
         <div class="note">
 
@@ -719,6 +1075,7 @@ function calculateBill(){
     </div>
 
     `;
+
 }
 
 </script>
