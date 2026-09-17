@@ -26,14 +26,14 @@ https://arunbhagatt.github.io/jpdcl-bill-calculator/
 
 | Units | Rate |
 |-------|------|
-| 0 – 200 | ₹2.30/unit |
-| 201 – 400 | ₹4.00/unit |
-| Above 400 | ₹4.30/unit |
+| 0 – 200 | ₹2.45/unit |
+| 201 – 400 | ₹4.20/unit |
+| Above 400 | ₹4.60/unit |
 
 ### Demand Charges
 
 ```text
-Sanctioned Load × ₹8
+Sanctioned Load × ₹10
 ```
 
 Default sanctioned load:
