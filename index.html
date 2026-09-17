@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -42,7 +43,7 @@ body{
 
     padding:20px;
 
-    overflow:hidden;
+    overflow:auto;
 
     position:relative;
 }
@@ -71,12 +72,12 @@ body{
 
     width:100%;
 
-    max-width:500px;
+    max-width:600px;
 
     background:
     rgba(255,255,255,0.12);
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:blur(18px);
 
     border:
     1px solid rgba(255,255,255,0.15);
@@ -213,6 +214,8 @@ button:hover{
     padding:18px;
 
     animation:fadeIn 0.4s ease;
+
+    overflow-x:auto;
 }
 
 @keyframes fadeIn{
@@ -233,6 +236,8 @@ table{
     width:100%;
 
     border-collapse:collapse;
+
+    min-width:500px;
 }
 
 th{
@@ -244,17 +249,24 @@ th{
     padding:12px;
 
     font-size:15px;
+
+    text-align:left;
 }
 
 td{
 
     padding:12px;
 
-    text-align:center;
-
     border-bottom:1px solid #ddd;
 
     font-size:15px;
+}
+
+td:last-child{
+
+    text-align:right;
+
+    font-weight:bold;
 }
 
 tr:nth-child(even){
@@ -330,6 +342,10 @@ tr:nth-child(even){
         font-size:22px;
     }
 
+    .container{
+        padding:18px;
+    }
+
 }
 
 </style>
@@ -342,63 +358,66 @@ tr:nth-child(even){
 
 <div class="container">
 
-    <div class="title">
-        ⚡ JPDCL Bill Calculator
+```
+<div class="title">
+    ⚡ JPDCL Bill Calculator
+</div>
+
+<div class="subtitle">
+    Smart Electricity Bill Estimator
+</div>
+
+<div class="input-box">
+
+    <label>
+        Enter Units Consumed
+    </label>
+
+    <input
+        type="number"
+        id="units"
+        placeholder="Example: 450"
+        min="0"
+        step="1"
+    >
+
+</div>
+
+<div class="input-box">
+
+    <label>
+        Sanctioned Load (Optional)
+    </label>
+
+    <input
+        type="number"
+        id="load"
+        placeholder="Default 2 kW"
+        value="2"
+        min="0"
+        step="0.5"
+    >
+
+    <div class="small-note">
+        Default value is 2 kW
     </div>
 
-    <div class="subtitle">
-        Smart Electricity Bill Estimator
-    </div>
+</div>
 
-    <div class="input-box">
+<button onclick="calculateBill()">
+    Calculate Bill
+</button>
 
-        <label>
-            Enter Units Consumed
-        </label>
+<div id="output"></div>
 
-        <input
-            type="number"
-            id="units"
-            placeholder="Example: 450"
-        >
+<div class="footer">
 
-    </div>
+    <span class="developer">
+        Developed by Arun Bhagat - bhagat.arun702@gmail.com
+    </span>
 
-    <div class="input-box">
-
-        <label>
-            Sanctioned Load (Optional)
-        </label>
-
-        <input
-            type="number"
-            id="load"
-            placeholder="Default 2 kW"
-            value="2"
-            step="0.5"
-        >
-
-        <div class="small-note">
-            Default value is 2 kW
-        </div>
-
-    </div>
-
-    <button onclick="calculateBill()">
-        Calculate Bill
-    </button>
-
-    <div id="output"></div>
-
-    <div class="footer">
-
-        <span class="developer">
-
-           Developed by Arun Bhagat -  bhagat.arun702@gmail.com
-
-        </span>
-
-    </div>
+</div>
+```
 
 </div>
 
@@ -415,7 +434,10 @@ document.getElementById("units")
 
 function calculateBill(){
 
-    if(document.getElementById("units").value.trim() === ""){
+    const unitsInput =
+    document.getElementById("units").value.trim();
+
+    if(unitsInput === ""){
 
         alert("Please enter units");
 
@@ -423,9 +445,7 @@ function calculateBill(){
     }
 
     let units =
-    parseFloat(
-        document.getElementById("units").value
-    );
+    parseFloat(unitsInput);
 
     if(isNaN(units) || units < 0){
 
@@ -437,10 +457,22 @@ function calculateBill(){
     let sanctionedLoad =
     parseFloat(
         document.getElementById("load").value
-    ) || 2;
+    );
 
-    let demandCharge =
-    sanctionedLoad * 8;
+    if(
+        isNaN(sanctionedLoad) ||
+        sanctionedLoad < 0
+    ){
+
+        sanctionedLoad = 2;
+    }
+
+    /*
+        ENERGY SLABS
+        0 - 200       = ₹2.45/unit
+        201 - 400     = ₹4.20/unit
+        Above 400     = ₹4.60/unit
+    */
 
     let slab1Units = 0;
     let slab2Units = 0;
@@ -454,7 +486,7 @@ function calculateBill(){
     Math.min(units, 200);
 
     slab1Cost =
-    slab1Units * 2.30;
+    slab1Units * 2.45;
 
     if(units > 200){
 
@@ -462,7 +494,7 @@ function calculateBill(){
         Math.min(units - 200, 200);
 
         slab2Cost =
-        slab2Units * 4;
+        slab2Units * 4.20;
     }
 
     if(units > 400){
@@ -471,14 +503,43 @@ function calculateBill(){
         units - 400;
 
         slab3Cost =
-        slab3Units * 4.30;
+        slab3Units * 4.60;
     }
 
-    let total =
+    /*
+        TOTAL ENERGY CHARGES (A)
+    */
+
+    let energyCharges =
     slab1Cost +
     slab2Cost +
-    slab3Cost +
-    demandCharge;
+    slab3Cost;
+
+    /*
+        FIXED CHARGES (B)
+        ₹10 per kW
+    */
+
+    let fixedCharges =
+    sanctionedLoad * 10;
+
+    /*
+        ELECTRICITY DUTY (C)
+        15% of Energy Charges
+    */
+
+    let electricityDuty =
+    energyCharges * 0.15;
+
+    /*
+        TOTAL APPROXIMATE BILL
+        A + B + C
+    */
+
+    let total =
+    energyCharges +
+    fixedCharges +
+    electricityDuty;
 
     document.getElementById("output").innerHTML =
 
@@ -489,40 +550,131 @@ function calculateBill(){
         <table>
 
             <tr>
-                <th>Slab</th>
-                <th>Units</th>
-                <th>Rate</th>
+
+                <th>Component</th>
+
+                <th>Calculation</th>
+
                 <th>Amount</th>
+
             </tr>
 
             <tr>
-                <td>0 - 200</td>
-                <td>${slab1Units}</td>
-                <td>₹2.30</td>
-                <td>₹${slab1Cost.toFixed(2)}</td>
-            </tr>
 
-            <tr>
-                <td>201 - 400</td>
-                <td>${slab2Units}</td>
-                <td>₹4.00</td>
-                <td>₹${slab2Cost.toFixed(2)}</td>
-            </tr>
-
-            <tr>
-                <td>Above 400</td>
-                <td>${slab3Units}</td>
-                <td>₹4.30</td>
-                <td>₹${slab3Cost.toFixed(2)}</td>
-            </tr>
-
-            <tr>
-                <td colspan="3">
-                    Demand Charges
-                </td>
                 <td>
-                    ₹${demandCharge.toFixed(2)}
+                    Slab 1 (0–200 units)
                 </td>
+
+                <td>
+                    ${slab1Units} × ₹2.45
+                </td>
+
+                <td>
+                    ₹${slab1Cost.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    Slab 2 (201–400 units)
+                </td>
+
+                <td>
+                    ${slab2Units} × ₹4.20
+                </td>
+
+                <td>
+                    ₹${slab2Cost.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    Slab 3 (Above 400 units)
+                </td>
+
+                <td>
+                    ${slab3Units} × ₹4.60
+                </td>
+
+                <td>
+                    ₹${slab3Cost.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <strong>Total Energy Charges (A)</strong>
+                </td>
+
+                <td>
+                    ₹${slab1Cost.toFixed(2)}
+                    +
+                    ₹${slab2Cost.toFixed(2)}
+                    +
+                    ₹${slab3Cost.toFixed(2)}
+                </td>
+
+                <td>
+                    ₹${energyCharges.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <strong>Fixed Charges (B)</strong>
+                </td>
+
+                <td>
+                    ${sanctionedLoad} kW × ₹10
+                </td>
+
+                <td>
+                    ₹${fixedCharges.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <strong>Electricity Duty (C)</strong>
+                </td>
+
+                <td>
+                    15% of ₹${energyCharges.toFixed(2)}
+                </td>
+
+                <td>
+                    ₹${electricityDuty.toFixed(2)}
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>
+                    <strong>Total Approximate Bill</strong>
+                </td>
+
+                <td>
+                    A + B + C
+                </td>
+
+                <td>
+                    <strong>
+                        ₹${total.toFixed(2)}
+                    </strong>
+                </td>
+
             </tr>
 
         </table>
@@ -530,14 +682,33 @@ function calculateBill(){
         <div class="total">
 
             💰 Estimated Bill =
-            ₹${total.toLocaleString("en-IN")}
+            ₹${total.toLocaleString("en-IN", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            })}
 
         </div>
 
         <div class="note">
 
-            Actual bill may vary slightly
-            due to arrears or adjustments.
+            Energy Charges (A) =
+            ₹${energyCharges.toFixed(2)}
+
+            <br>
+
+            Fixed Charges (B) =
+            ₹${fixedCharges.toFixed(2)}
+
+            <br>
+
+            Electricity Duty (C) =
+            ₹${electricityDuty.toFixed(2)}
+
+            <br><br>
+
+            Actual bill may vary due to
+            arrears, adjustments, taxes,
+            subsidies or other applicable charges.
 
             <br><br>
 
